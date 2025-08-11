@@ -165,7 +165,9 @@ function buildEmbeds(session, author) {
     .setTitle('🗞️ Squigs Crypto Dispatch')
     .setDescription('Humans continue to do remarkably Ugly things. We took notes:')
     .setColor(color)
-    .setFooter({ text: `Filed by ${author.displayName ?? author.username}` })
+    .setFooter({ 
+      text: `Filed on ${new Date().toLocaleDateString()} \nFiled by Blinky von Scoop`
+    })
     .setTimestamp(new Date());
 
   const items = session.items.map((it, idx) => {
@@ -182,6 +184,7 @@ function buildEmbeds(session, author) {
 
   return [header, ...items];
 }
+
 
 async function showPreview(interaction, session) {
   if (session.items.length === 0) {
