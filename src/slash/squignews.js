@@ -170,12 +170,12 @@ function buildEmbeds(session, author) {
     })
     .setTimestamp(new Date());
 
-  const items = session.items.map((it, idx) => {
-    const e = new EmbedBuilder()
-      .setTitle(`${idx + 1}. ${it.headline}`)
-      .setDescription(it.summary)
-      .setURL(it.url)
-      .setColor(color);
+const items = session.items.map((it) => {
+  const e = new EmbedBuilder()
+    .setTitle(it.headline)
+    .setDescription(it.summary)
+    .setURL(it.url)
+    .setColor(color);
 
     if (it.source) e.addFields({ name: 'Source', value: it.source, inline: true });
     if (it.image) e.setImage(it.image);
