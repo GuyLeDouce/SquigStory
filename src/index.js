@@ -40,7 +40,6 @@ const isSelect =
   interaction.isUserSelectMenu?.();
 
 if (interaction.isButton() || isSelect || interaction.type === InteractionType.ModalSubmit) {
-  // For Channel Select Menu, the customId is on the component, so still fine:
   if (interaction.customId?.startsWith('snews:')) {
     return squigNews.route(interaction, client);
   }
