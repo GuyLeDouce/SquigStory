@@ -190,20 +190,22 @@ async function showPreview(interaction, session) {
   if (session.items.length === 0) {
     return interaction.reply({ ephemeral: true, content: 'Add at least one news item first.' });
   }
-  const channelSet = Boolean(session.channelId);
 
+  const channelSet = Boolean(session.channelId);
   const embeds = buildEmbeds(session, interaction.member.user);
 
   return interaction.reply({
     ephemeral: true,
-    content: `Preview ${channelSet ? `→ will post to <#${session.channelId}>` : '(no channel selected yet)'}\n` +
+    content:
+      `Preview ${channelSet ? `→ will post to <#${session.channelId}>` : '(no channel selected yet)'}\n` +
       `Items: ${session.items.length}/${MAX_ITEMS}`,
     embeds,
     components: [
       new ActionRowBuilder().addComponents(
-        new ButtonBuilder().setCustomId('snews:add').setLabel('➕ Add another').setStyle(ButtonStyle.Primary),
-        new ButtonBuilder().setCustomId('snews:publish').setLabel('🚀 Publish').setStyle(ButtonStyle.Success).setDisabled(!channelSet),
-        new ButtonBuilder().setCustomId('snews:cancel').setLabel('Cancel').setStyle(ButtonStyle.Danger)
+        new ButtonBuilder().setCustomId('snews:add').setLabel('➕ Add item').setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId('snews:edit').setLabel('✏️ Edit item').setStyle(ButtonStyle.Secondary),
+        new ButtonBuilder().setCustomId('snews:preview').setLabel('🔄 Refresh preview').setStyle(ButtonStyle.Secondary),
+        new ButtonBuilder().setCustomId('snews:publish').setLabel('🚀 Publish').setStyle(ButtonStyle.Success).setDisabled(!channelSet)
       )
     ]
   });
