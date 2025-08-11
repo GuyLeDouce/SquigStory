@@ -32,6 +32,19 @@ client.on('interactionCreate', async (interaction) => {
         return squigNews.execute(interaction, client);
       }
     }
+// AFTER
+const isSelect =
+  interaction.isStringSelectMenu?.() ||
+  interaction.isChannelSelectMenu?.() ||
+  interaction.isRoleSelectMenu?.() ||
+  interaction.isUserSelectMenu?.();
+
+if (interaction.isButton() || isSelect || interaction.type === InteractionType.ModalSubmit) {
+  // For Channel Select Menu, the customId is on the component, so still fine:
+  if (interaction.customId?.startsWith('snews:')) {
+    return squigNews.route(interaction, client);
+  }
+}
 
     // Delegate component and modal handlers to the command module
     if (interaction.isButton() || interaction.isAnySelectMenu() || interaction.type === InteractionType.ModalSubmit) {
